@@ -33,6 +33,15 @@ public class SpuController {
 
     @Autowired
     private SpuService spuService;
+    @GetMapping("category/{categoryId}")
+    //返回一个common下的分页vo对象
+    public ResponseVo<PageResultVo>querySpuBypage(@PathVariable("categoryId") Long categoryId,
+                                                  PageParamVo pageParamVo){
+
+        ResponseVo<PageResultVo> responseVo =  this.spuService.querySpuBypage(categoryId,pageParamVo);
+        return responseVo;
+    }
+
 
     /**
      * 列表

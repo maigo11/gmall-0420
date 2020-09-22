@@ -2,6 +2,7 @@ package com.atguigu.gmall.pms.controller;
 
 import java.util.List;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +34,23 @@ public class AttrController {
 
     @Autowired
     private AttrService attrService;
+    //
+    @GetMapping("category/{cid}")
+    public ResponseVo<List<AttrEntity>> queryAttrsByGid(@PathVariable("cid") Long cid,
+                                                        @RequestParam(value = "type",required = false) Integer type,
+                                                        @RequestParam(value = "searchType",required = false) Integer searchType){
+        List<AttrEntity> attrEntities = this.attrService.queryAttrsByCid(cid, type, searchType);
+        return ResponseVo.ok(attrEntities);
 
+    }
+    /**
+     * 根据groupId查询attr信息
+     * @return
+     */
+    @GetMapping("group/{gid}")
+    public ResponseVo<List<AttrEntity>> queryAttrsByGid(@PathVariable("gid")Long gid){
+       return ResponseVo.ok(attrService.list(new QueryWrapper<AttrEntity>().eq("group_id",gid)));
+    }
     /**
      * 列表
      */

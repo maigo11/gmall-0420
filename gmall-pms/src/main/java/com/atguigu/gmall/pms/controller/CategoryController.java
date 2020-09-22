@@ -35,6 +35,18 @@ public class CategoryController {
     private CategoryService categoryService;
 
     /**
+     * 查询所有的商品分类
+     * @param parentId
+     * @return
+     */
+    @GetMapping("parent/{parentId}")
+    public ResponseVo<List<CategoryEntity>> queryCategory(@PathVariable("parentId") Long parentId){
+
+        List<CategoryEntity> categorys =   this.categoryService.queryCategory(parentId);
+        return ResponseVo.ok(categorys);
+
+    }
+    /**
      * 列表
      */
     @GetMapping
